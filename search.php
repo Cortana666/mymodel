@@ -2,9 +2,9 @@
   // include('signup.php');
   // include 'base.php';
 	@session_start();
-	  if (@$_SESSION['user']=='') {
-	    echo "<script>alert('请登录！');location = '/login.php';</script>";
-	  }
+  if (@$_SESSION['user']=='') {
+    echo "<script>alert('请登录！');location = '/login.php';</script>";
+  }
 ?>
 <html lang="en" class="app">
 <head>
@@ -15,6 +15,11 @@
 <link rel="stylesheet" href="css/app.v2.css" type="text/css" />
 <link rel="stylesheet" href="js\calendar/bootstrap_calendar.css" type="text/css" cache="false" />
 <!--[if lt IE 9]> <script src="js/ie/html5shiv.js" cache="false"></script> <script src="js/ie/respond.min.js" cache="false"></script> <script src="js/ie/excanvas.js" cache="false"></script> <![endif]-->
+<style type="text/css">
+  .table{
+    border: 1px solid black;
+  }
+</style>
 </head>
 <body>
 <section class="vbox">
@@ -175,153 +180,169 @@
           <section class="scrollable padder">
             <?php 
 	            if (isset($_POST['sub'])) {
-					$keyword = @$_POST['search'];
+					      $keyword = @$_POST['search'];
+                // var_dump($keyword);
 	            	$pdo_stu = new PDO("mysql:host=localhost;dbname=db_student","root","root");
 	            	$pdo_admin = new PDO("mysql:host=localhost;dbname=db_admin","root","root");
-					$pdo_stu -> query("set names utf8;");
-					$pdo_admin -> query("set names utf8;");
+					      $pdo_stu -> query("set names utf8;");
+					      $pdo_admin -> query("set names utf8;");
 
 
 
 
-					$sql_stu = "select * from tb_stu where stu_num = '$keyword' or name = '$keyword' or class = '$keyword' or profession = '$keyword'";
-					$res_stu = $pdo_stu -> query($sql_stu);
-					$row_stu = $res_stu -> fetchAll();
-					// for ($i=0; $i <count($row_stu) ; $i++) { 
-					// 	$row_stu = $res_stu -> fetch();
-					// }
+      					$sql_stu = "select * from tb_stu where stu_num = '$keyword' or name = '$keyword' or class = '$keyword' or profession = '$keyword'";
+      					$res_stu = $pdo_stu -> query($sql_stu);
+      					$row_stu = $res_stu -> fetchAll();
+      					// for ($i=0; $i <count($row_stu) ; $i++) { 
+      					// 	$row_stu = $res_stu -> fetch();
+      					// }
 
 
-					$sql_class = "select * from tb_class where class_num = '$keyword' or class_name = '$keyword' or hours = '$keyword' or credit = '$keyword'";
-					$res_class = $pdo_stu -> query($sql_class);
-					$row_class = $res_class -> fetchAll();
+      					$sql_class = "select * from tb_class where class_num = '$keyword' or class_name = '$keyword' or hours = '$keyword' or credit = '$keyword'";
+      					$res_class = $pdo_stu -> query($sql_class);
+      					$row_class = $res_class -> fetchAll();
 
 
 
 					
-					$sql_admin = "select * from tb_admin where user = '$keyword' or password = '$keyword'";
-					$res_admin = $pdo_admin -> query($sql_admin);
-					$row_admin = $res_admin -> fetchAll();
+      					$sql_admin = "select * from tb_admin where user = '$keyword' or password = '$keyword'";
+      					$res_admin = $pdo_admin -> query($sql_admin);
+      					$row_admin = $res_admin -> fetchAll();
 
 
 
-					// var_dump($row_stu);
-					// var_dump($row_class);
-					// var_dump($row_admin);
-					// if ($row_stu != '') {
-					// test($row_stu);
-						foreach ($row_stu as $key_stu => $val_stu) {
-							if ($key_stu == 0) {
-								echo "<table>";
-								echo "<tr>";
-			                  	echo "<td>";
-			                  	echo '学号';
-			                  	echo "</td>";
-			                  	echo "<td>";
-			                  	echo '姓名';
-			                  	echo "</td>";
-			                  	echo "<td>";
-			                  	echo '密码';
-			                  	echo "</td>";
-			                  	echo "<td>";
-			                  	echo '班级';
-			                  	echo "</td>";
-			                  	echo "<td>";
-			                  	echo '专业';
-			                  	echo "</td>";
-			                  	echo "</tr>";
-							}
-							echo "<tr>";
-		                  	echo "<td>";
-		                  	echo $val_stu['stu_num'];
-		                  	echo "</td>";
-		                  	echo "<td>";
-		                  	echo $val_stu['name'];
-		                  	echo "</td>";
-		                  	echo "<td>";
-		                  	echo $val_stu['password'];
-		                  	echo "</td>";
-		                  	echo "<td>";
-		                  	echo $val_stu['class'];
-		                  	echo "</td>";
-		                  	echo "<td>";
-		                  	echo $val_stu['profession'];
-		                  	echo "</td>";
-		                  	echo "</tr>";
-		                  	if ($key_stu == count($row_stu)-1) {
-		                  		echo '</table>';
-		                  	}
-						}
-					// }else{
-						// echo "stu为空";
-					// }
-					// if ($row_class != '') {
-						// var_dump($row_class);
-						foreach ($row_class as $key_class => $val_class) {
-							if ($key_class == 0) {
-								echo "<table>";
-								echo "<tr>";
-			                  	echo "<td>";
-			                  	echo '课程号';
-			                  	echo "</td>";
-			                  	echo "<td>";
-			                  	echo '课程名';
-			                  	echo "</td>";
-			                  	echo "<td>";
-			                  	echo '课时';
-			                  	echo "</td>";
-			                  	echo "<td>";
-			                  	echo '学分';
-			                  	echo "</td>";
-			                  	echo "</tr>";
-							}
-							echo "<tr>";
-		                  	echo "<td>";
-		                  	echo $val_class['class_num'];
-		                  	echo "</td>";
-		                  	echo "<td>";
-		                  	echo $val_class['class_name'];
-		                  	echo "</td>";
-		                  	echo "<td>";
-		                  	echo $val_class['hours'];
-		                  	echo "</td>";
-		                  	echo "<td>";
-		                  	echo $val_class['credit'];
-		                  	echo "</td>";
-		                  	echo "</tr>";
-		                  	if ($key_class == count($row_class)-1) {
-		                  		echo '</table>';
-		                  	}
-						}
+      					// var_dump($row_stu);
+      					// var_dump($row_class);
+      					// var_dump($row_admin);
+      					// if ($row_stu != '') {
+      					// test($row_stu);
+                if ($row_stu) {
+                   echo "学生：";
+                 }else {
+                   echo "学生中无此关键字<br />";
+                 }
+    						foreach ($row_stu as $key_stu => $val_stu) {
+    							if ($key_stu == 0) {
+    								echo "<table class='table'>";
+    								echo "<tr>";
+                  	echo "<td>";
+                  	echo '学号';
+                  	echo "</td>";
+                  	echo "<td>";
+                  	echo '姓名';
+                  	echo "</td>";
+                  	echo "<td>";
+                  	echo '密码';
+                  	echo "</td>";
+                  	echo "<td>";
+                  	echo '班级';
+                  	echo "</td>";
+                  	echo "<td>";
+                  	echo '专业';
+                  	echo "</td>";
+                  	echo "</tr>";
+    							}
+    							echo "<tr>";
+                	echo "<td>";
+                	echo $val_stu['stu_num'];
+                	echo "</td>";
+                	echo "<td>";
+                	echo $val_stu['name'];
+                	echo "</td>";
+                	echo "<td>";
+                	echo $val_stu['password'];
+                	echo "</td>";
+                	echo "<td>";
+                	echo $val_stu['class'];
+                	echo "</td>";
+                	echo "<td>";
+                	echo $val_stu['profession'];
+                	echo "</td>";
+                	echo "</tr>";
+                	if ($key_stu == count($row_stu)-1) {
+                		echo '</table>';
+                	}
+    						}
+      					// }else{
+      						// echo "stu为空";
+      					// }
+      					// if ($row_class != '') {
+      						// var_dump($row_class);
+                if ($row_class) {
+                   echo "课程：";
+                 }else {
+                   echo "课程中无此关键字<br />";
+                 }
+    						foreach ($row_class as $key_class => $val_class) {
+    							if ($key_class == 0) {
+    								echo "<table class='table'>";
+    								echo "<tr>";
+                  	echo "<td>";
+                  	echo '课程号';
+                  	echo "</td>";
+                  	echo "<td>";
+                  	echo '课程名';
+                  	echo "</td>";
+                  	echo "<td>";
+                  	echo '课时';
+                  	echo "</td>";
+                  	echo "<td>";
+                  	echo '学分';
+                  	echo "</td>";
+                  	echo "</tr>";
+    							}
+    							echo "<tr>";
+                	echo "<td>";
+                	echo $val_class['class_num'];
+                	echo "</td>";
+                	echo "<td>";
+                	echo $val_class['class_name'];
+                	echo "</td>";
+                	echo "<td>";
+                	echo $val_class['hours'];
+                	echo "</td>";
+                	echo "<td>";
+                	echo $val_class['credit'];
+                	echo "</td>";
+                	echo "</tr>";
+                	if ($key_class == count($row_class)-1) {
+                		echo '</table>';
+                	}
+    						}
 					// }else{
 						// echo "class为空";
 					// }
 					// if ($row_admin != '') {
 						// var_dump($row_admin);
-						foreach ($row_admin as $key_admin => $val_admin) {
-							if ($key_admin == 0) {
-								echo "<table>";
-								echo "<tr>";
-			                  	echo "<td>";
-			                  	echo '账号';
-			                  	echo "</td>";
-			                  	echo "<td>";
-			                  	echo '密码';
-			                  	echo "</td>";
-			                  	echo "</tr>";
-							}
-							echo "<tr>";
-		                  	echo "<td>";
-		                  	echo $val_admin['user'];
-		                  	echo "</td>";
-		                  	echo "<td>";
-		                  	echo $val_admin['password'];
-		                  	echo "</td>";
-		                  	echo "</tr>";
-		                  	if ($key_admin == count($row_admin)-1) {
-		                  		echo '</table>';
-		                  	}
-						}
+                if ($row_admin) {
+                   echo "管理员：";
+                 }else {
+                   echo "管理员中无此关键字";
+                 }
+    						foreach ($row_admin as $key_admin => $val_admin) {
+    							if ($key_admin == 0) {
+    								echo "<table class='table'>";
+    								echo "<tr>";
+                  	echo "<td>";
+                  	echo '账号';
+                  	echo "</td>";
+                  	echo "<td>";
+                  	echo '密码';
+                  	echo "</td>";
+                  	echo "</tr>";
+    							}
+    							echo "<tr>";
+                	echo "<td>";
+                	echo $val_admin['user'];
+                	echo "</td>";
+                	echo "<td>";
+                	echo $val_admin['password'];
+                	echo "</td>";
+                	echo "</tr>";
+                	if ($key_admin == count($row_admin)-1) {
+                		echo '</table>';
+                	}
+    						}
 					// }else{
 					// 	echo "admin为空";
 					// }

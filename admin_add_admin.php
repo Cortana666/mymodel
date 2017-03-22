@@ -46,13 +46,18 @@
       <li class="dropdown hidden-xs"> <a href="#" class="dropdown-toggle dker" data-toggle="dropdown"><i class="fa fa-fw fa-search"></i></a>
         <section class="dropdown-menu aside-xl animated fadeInUp">
           <section class="panel bg-white">
-            <form role="search">
+            <form role="search" method="post" action="search.php">
               <div class="form-group wrapper m-b-none">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="查找">
-                  <span class="input-group-btn">
-                  <button type="submit" class="btn btn-info btn-icon"><i class="fa fa-search"></i></button>
-                  </span> </div>
+                  <!-- <form method="post" action="search.php"> -->
+                    <input name="search" type="text" class="form-control" placeholder="输入关键字">
+                    <span class="input-group-btn">
+                    <!-- <i class="fa fa-search"> -->
+                      <input name="sub" type="submit" class="btn btn-info btn-icon" value="搜索" />
+                    <!-- </i> -->
+                    </span>
+                  <!-- </form> -->
+                </div>
               </div>
             </form>
           </section>

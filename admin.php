@@ -14,6 +14,13 @@
 <link rel="stylesheet" href="css/app.v2.css" type="text/css" />
 <link rel="stylesheet" href="js\calendar/bootstrap_calendar.css" type="text/css" cache="false" />
 <!--[if lt IE 9]> <script src="js/ie/html5shiv.js" cache="false"></script> <script src="js/ie/respond.min.js" cache="false"></script> <script src="js/ie/excanvas.js" cache="false"></script> <![endif]-->
+<style type="text/css">
+  .welcome{
+    font-size: 60px;
+    line-height: 600px;
+    text-align: center;
+  }
+</style>
 </head>
 <body>
 <section class="vbox">
@@ -51,7 +58,7 @@
                     <input name="search" type="text" class="form-control" placeholder="输入关键字">
                     <span class="input-group-btn">
                     <!-- <i class="fa fa-search"> -->
-                      <input type="submit" class="btn btn-info btn-icon" value="搜索" />
+                      <input name="sub" type="submit" class="btn btn-info btn-icon" value="搜索" />
                     <!-- </i> -->
                     </span>
                   <!-- </form> -->
@@ -172,7 +179,7 @@
       <section id="content">
         <section class="vbox">
           <section class="scrollable padder">
-            <p>欢迎来到学生成绩管理系统！</p>
+            <p class="welcome">欢迎来到学生成绩管理系统！</p>
           </section>
         </section>
         <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a> </section>
