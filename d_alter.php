@@ -12,7 +12,7 @@
     $id_num = @$_POST['id'];
     $update = "update tb_admin set user='$user',password='$pass' where id = '$id_num'";
     mysql_query($update);
-    echo "<script>alert('修改成功!');location = 'update.php';</script>";
+    echo "<script>alert('修改成功!');alert('请重新登录！');location = 'login.php';</script>";
   }
  ?>
 
