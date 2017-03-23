@@ -18,7 +18,7 @@
 				// $sql = 
 				if ($pro == ''||$class == '') {
 					$res = $pdo-> query("select * from tb_stu where profession = '$pro' or class = '$class'");
-				}if ($pro == ''&&$class == '') {
+				}else if ($pro == ''&&$class == '') {
 					$res = $pdo-> query("select * from tb_stu");
 				}
 				else {

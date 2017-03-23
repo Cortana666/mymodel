@@ -173,7 +173,7 @@
                         <ul class="nav bg">
                           <li > <a href="table-static.html" > <i class="fa fa-angle-right"></i> <span>Table static</span> </a> </li>
                           <li > <a href="table-datatable.html" > <i class="fa fa-angle-right"></i> <span>Datatable</span> </a> </li>
-                          <li > <a href="table-datagrid.html" > <i class="fa fa-angle-right"></i> <span>Datagrid</span> </a> </li>
+                          <li > <a href="table-dataadmin_del_grade.php" > <i class="fa fa-angle-right"></i> <span>Datagrid</span> </a> </li>
                         </ul>
                       </li>
                       <li > <a href="#form" > <i class="fa fa-angle-down text"></i> <i class="fa fa-angle-up text-active"></i> <span>Form</span> </a>

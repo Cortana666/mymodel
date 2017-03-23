@@ -1,4 +1,4 @@
-﻿<?php 
+<?php 
   // include('signup.php');
   @session_start();
   if (@$_SESSION['user']=='') {
@@ -15,10 +15,8 @@
 <link rel="stylesheet" href="js\calendar/bootstrap_calendar.css" type="text/css" cache="false" />
 <!--[if lt IE 9]> <script src="js/ie/html5shiv.js" cache="false"></script> <script src="js/ie/respond.min.js" cache="false"></script> <script src="js/ie/excanvas.js" cache="false"></script> <![endif]-->
 <style type="text/css">
-  .welcome{
-    font-size: 60px;
-    line-height: 600px;
-    text-align: center;
+  .none{
+    display: none;
   }
 </style>
 </head>
@@ -179,7 +177,85 @@
       <section id="content">
         <section class="vbox">
           <section class="scrollable padder">
-            <p class="welcome">欢迎来到学生成绩管理系统！</p>
+            <form method="post">
+              <input type="text" name="keyword" placeholder="请输入学号查找">
+              <input type="submit" name="sub" value="查找">
+            </form>
+            <?php 
+              @$keyword = $_POST['keyword'];
+              // var_dump($keyword);
+              if (isset($_POST['sub'])) {
+                $pdo = new PDO("mysql:local=localhost;dbname=db_student","root","root");
+                $pdo -> query("set names utf8;");
+                $sql = "select tb_stu.stu_num,name,class_name,grade,hours,credit from tb_stu,tb_class,tb_grade where tb_stu.stu_num = tb_grade.stu_num and tb_class.class_num = tb_grade.class_num and tb_stu.stu_num = '$keyword'";
+                $res = $pdo -> query($sql);
+                // $row = $res -> fetchALL();
+                // var_dump($row);
+                foreach ($res as $key => $value) {
+                  if ($key == 0) {
+                    echo "<table>";
+                    echo "<tr>";
+                    echo "<td>";
+                    echo "学号";
+                    echo "</td>";
+                    echo "<td>";
+                    echo "姓名";
+                    echo "</td>";
+                    echo "<td>";
+                    echo "课程";
+                    echo "</td>";
+                    echo "<td>";
+                    echo "成绩";
+                    echo "</td>";
+                    echo "<td>";
+                    echo "学时";
+                    echo "</td>";
+                    echo "<td>";
+                    echo "学分";
+                    echo "</td>";
+                    echo "</tr>";
+                  }
+                  echo "<tr>";
+                  echo "<td>";
+                  echo $value['stu_num'];
+                  echo "</td>";
+                  echo "<td>";
+                  echo $value['name'];
+                  echo "</td>";
+                  echo "<td>";
+                  echo $value['class_name'];
+                  echo "</td>";
+                  echo "<td>";
+                  echo $value['grade'];
+                  echo "</td>";
+                  echo "<td>";
+                  echo $value['hours'];
+                  echo "</td>";
+                  echo "<td>";
+                  echo $value['credit'];
+                  echo "</td>";
+                  echo "<td>";
+                  echo "<form method='post'>";
+                  echo "<input type='submit' value='删除' name='del'>";
+                  $grade = $value['stu_num'];
+                  echo "<input type='text' value='$grade' class='none' name='delete'>";
+                  echo "</form>";
+                  echo "</td>";
+                  echo "</tr>";
+                  // if ($key+1 == count($res)) {
+                  //   echo "</table>";
+                  // }
+                }
+              }
+              if (isset($_POST['del'])) {
+                $pdo = new PDO("mysql:local=localhost;dbname=db_student","root","root");
+                $pdo -> query("set names utf8;");
+                $delete = $_POST['delete'];
+                $sql = "delete from tb_grade where stu_num = '$delete'";
+                $res = $pdo -> exec($sql);
+                echo "<script>alert('删除成功！');location = 'admin_del_grade.php'</script>";
+              }
+             ?>
           </section>
         </section>
         <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a> </section>
